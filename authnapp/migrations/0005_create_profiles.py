@@ -11,7 +11,7 @@ def forwards_func(apps, schema_editor):
             for item in qs:
                 ShopUserProfile.objects.create(user=item)
     except Exception as exp:
-        print(f"Cann't create user profile: {exp}")
+        print(f"Can't create user profile: {exp}")
 
 
 def reverse_func(apps, schema_editor):
@@ -21,11 +21,10 @@ def reverse_func(apps, schema_editor):
         with transaction.atomic():
             ShopUserProfile.objects.all().delete()
     except Exception as exp:
-        print(f"Cann't delete users profiles: {exp}")
+        print(f"Can't delete users profiles: {exp}")
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("authnapp", "0004_user_profile"),
     ]
