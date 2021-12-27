@@ -225,5 +225,8 @@ fabric.properties
 # geekshop --->
 
 tmp
+.idea
+.vscode
+.DS_Store
 
 # <--- geekshop
