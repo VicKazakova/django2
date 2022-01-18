@@ -12,6 +12,10 @@ from authnapp.forms import ShopUserRegisterForm
 from authnapp.models import ShopUser
 from mainapp.models import Product, ProductCategory
 
+from django.db import connection
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+
 
 @user_passes_test(lambda u: u.is_superuser)
 def admin_main(request):
@@ -183,14 +187,11 @@ def product_delete(request, pk):
     content = {"title": title, "product_to_delete": product, "media_url": settings.MEDIA_URL}
     return render(request, "adminapp/product_delete.html", content)
 
-from django.db import connection
-from django.db.models.signals import pre_save
-from django.dispatch import receiver
 
 def db_profile_by_type(prefix, type, queries):
     update_queries = list(filter(lambda x: type in x["sql"], queries))
-    print(f"db_profile {type} for {prefix}:")
-    [print(query["sql"]) for query in update_queries]
+    # print(f"db_profile {type} for {prefix}:")
+    # [print(query["sql"]) for query in update_queries]
 
 
 @receiver(pre_save, sender=ProductCategory)
