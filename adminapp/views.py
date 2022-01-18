@@ -1,6 +1,10 @@
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import connection
+from django.db.models import F
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 from django.shortcuts import HttpResponseRedirect, get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views.generic.detail import DetailView
@@ -12,11 +16,6 @@ from authnapp.forms import ShopUserRegisterForm
 from authnapp.models import ShopUser
 from mainapp.models import Product, ProductCategory
 
-from django.db import connection
-from django.db.models.signals import pre_save
-from django.dispatch import receiver
-
-from django.db.models import F
 
 @user_passes_test(lambda u: u.is_superuser)
 def admin_main(request):
